@@ -16,7 +16,8 @@ const txtPassword = document.getElementById('txtPassword')
 const btnLogin = document.getElementById('btnLogin')
 const btnSignup = document.getElementById('btnSignup')
 const btnGoogleLogin = document.getElementById('btnGoogleLogin')
-
+// sen added lines below
+const btnForgetPassword = document.getElementById('btnForgetPassword')
 
 //Add Login event
 btnLogin.addEventListener('click', e => {
@@ -33,9 +34,9 @@ promise.catch(e => alert("User not found"))
 
 })
 //sign in with Google
-btnGoogleLogin.addEventListener('click', e => { 
+btnGoogleLogin.addEventListener('click', e => {
     var provider = new firebase.auth.GoogleAuthProvider();
-    
+
     firebase.auth().signInWithPopup(provider).then(function(result) {
         // This gives you a Google Access Token. You can use it to access the Google API.
         var token = result.credential.accessToken;
@@ -65,8 +66,18 @@ const pass = txtPassword.value
 const auth = firebase.auth();
 
 const promise = auth.createUserWithEmailAndPassword(email, pass)
+window.location = 'update_profile.html';
 
 })
+
+// Sen Add forget password action
+
+btnForgetPassword.addEventListener('click', function(){
+
+window.location = 'forget_password.html';
+
+})
+
 
 
 //Add a realtime listener
@@ -76,7 +87,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         console.log(firebaseUser)
         window.location = '../user_page/user_home.html'; //After successful login, user will be redirected to home.html
             }
-          
+
     else {
         console.log('Not logged in');
     }
