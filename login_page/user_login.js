@@ -19,7 +19,8 @@ const btnGoogleLogin = document.getElementById('btnGoogleLogin')
 
 
 //Add Login event
-btnLogin.addEventListener('click', e => {
+btnLogin.addEventListener('submit', e => {
+    e.preventDefault()
     //get email and password
     const email = txtEmail.value
     const pass = txtPassword.value
@@ -56,7 +57,6 @@ btnGoogleLogin.addEventListener('click', e => {
 
 //Add sign up event
 btnSignup.addEventListener('click', e => {
-
 //Get email and pass
 //TO DO: CHECK FOR REAL EMAIL
 
@@ -64,9 +64,17 @@ const email = txtEmail.value
 const pass = txtPassword.value
 const auth = firebase.auth();
 
-const promise = auth.createUserWithEmailAndPassword(email, pass)
+
+const promise = auth.createUserWithEmailAndPassword(email, pass).then(e=> {
+    alert("Account Created")
+})
+promise.catch(e => { 
+    alert(e)
 
 })
+})
+
+
 
 
 //Add a realtime listener
