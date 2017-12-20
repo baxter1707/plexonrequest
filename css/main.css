@@ -30,7 +30,7 @@
   opacity: 0.5;
 }
 
-#poster-title-container:hover button{
+#poster-title-container:hover img.trash-can-image{
   display:block;
 }
 
@@ -41,16 +41,21 @@
   margin-right: 10px;
 }
 
-#poster-title-container button{
+#poster-title-container img.trash-can-image{
   position: absolute;
-  top:35%;
-  right: 63%;
+  top:25%;
+  right: 61%;
   background-color: transparent;
   display: none;
   font-weight: bold;
   border-color: black;
-  height:10%;
+  height:25%;
+  width:30%;
 
+}
+
+.trash-button {
+  background: url("images/trashcan.png")
 }
 
 
