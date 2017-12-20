@@ -1,0 +1,74 @@
+#movie-choice-container{
+  height:auto;
+  width:300px;
+  align-items: center;
+  display:flex;
+  flex-direction: column;
+}
+
+.selection-container{
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  height: 30%;
+  width:90%;
+
+}
+#poster-title-container {
+  position: relative
+}
+
+#poster-title-container img{
+  height:90%;
+  width: 50%;
+
+}
+
+#poster-title-container:hover img{
+  opacity: 0.5;
+}
+
+#poster-title-container:hover button{
+  display:block;
+}
+
+
+#movie-choice-container label {
+  align-self: flex-start;
+  padding-left: 8%;
+  margin-right: 10px;
+}
+
+#poster-title-container button{
+  position: absolute;
+  top:35%;
+  right: 63%;
+  background-color: transparent;
+  display: none;
+  font-weight: bold;
+  border-color: black;
+  height:10%;
+
+}
+
+
+
+
+/*_____________TOGGLE TEST_____________  */
+.toggler {
+   width: 300px;
+   height: auto;
+ }
+ #button {
+   padding: .5em 1em;
+   text-decoration: none;
+   margin-bottom: 10px;
+ }
+ #effect {
+   position: relative;
+   width: 300px;
+   height: auto;
+   padding: 0.4em;
+ }
