@@ -67,7 +67,7 @@ const auth = firebase.auth();
 
 const promise = auth.createUserWithEmailAndPassword(email, pass)
 })
-window.location = '../login_page/update_profile.html';
+window.location = '../login_page/user_signup.html';
 
 // Sen Add forget password action
 
