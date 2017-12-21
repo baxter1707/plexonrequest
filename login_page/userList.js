@@ -1,11 +1,20 @@
 
-class Users {
+class User {
 
-  constructor(firstName, lastName, phoneNumber, address) {
-    this.firstName = firstName
-    this.lastName = lastName
-    this.phoneNumber = phoneNumber
+  constructor(address, phoneNumber, lastName, firstName) {
+
     this.address = address
+    this.phoneNumber = phoneNumber
+    this.lastName = lastName
+    this.firstName = firstName
+    this.movieList = []
+  }
+}
 
+class Movie {
+
+  constructor(movieName, movieID){
+    this.movieName = movieName
+    this.movieID = movieID
   }
 }

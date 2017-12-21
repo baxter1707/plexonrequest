@@ -1,41 +1,102 @@
-// Initialize Firebase
-const config = {
-    apiKey: "AIzaSyC4xJczHrcejbkI0VeKFnBVpeUkq6E_YFk",
-    authDomain: "mikesmovies-c3799.firebaseapp.com",
-    databaseURL: "https://mikesmovies-c3799.firebaseio.com",
-    projectId: "mikesmovies-c3799",
-    storageBucket: "mikesmovies-c3799.appspot.com",
-    messagingSenderId: "840246158041"
-  };
-  firebase.initializeApp(config);
 
-  const txtFirstName = document.getElementById('txtFirstName')
-  const txtLastName = document.getElementById('txtLastName')
-  const txtPhoneNumber = document.getElementById('txtPhoneNumber')
-  const txtAddress = document.getElementById('txtAddress')
-  const btnUpdateProfile = document.getElementById('btnUpdateProfile')
+let users = []
+let rootRef = firebase.database().ref()
+let userListRef = rootRef.child("users")
+let userIDRef = userListRef.child("Info")
 
-//Sen Add send reset password Link
-btnUpdateProfile.addEventListener('click', e => {
+userInfoObservers()
 
-//Get email and pass
-//TO DO: CHECK FOR REAL EMAIL
-const firstName = txtFirstName.value
-const lastName = txtFirstName.value
-const phoneNumber = txtPhoneNumber.value
-const address = txtAddress.value
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
 
-let user = new Users(firstName, lastName, phoneNumber, address)
-console.log(user)
-window.location = '../user_page/user_home.html'
+    const currentuser = firebase.auth().currentUser;
+    
 
+    const txtFirstName = document.getElementById('txtFirstName')
+    const txtLastName = document.getElementById('txtLastName')
+    const txtPhoneNumber = document.getElementById('txtPhoneNumber')
+    const txtAddress = document.getElementById('txtAddress')
+    const btnUpdateProfile = document.getElementById('btnUpdateProfile')
+
+  //Sen Add send reset password Link
+  btnUpdateProfile.addEventListener('click', e => {
+
+  userIDRef = userListRef.child(currentuser.uid)
+  u = userIDRef.child("Info")
+  let user = new User(txtAddress.value, txtPhoneNumber.value, txtLastName.value, txtFirstName.value)
+  u.set(user)
+
+  alert("You have updated your information")
+
+   // window.location = '../user_page/user_home.html'
+
+  })
+  btnContinueToUserPage.addEventListener('click', e => {
+
+  //Get email and pass
+  //TO DO: CHECK FOR REAL EMAIL
+  window.location = '../user_page/user_home.html'
+
+  })
+
+
+
+
+
+  } else {
+    console.log("something is wrong")
+  }
+});
+
+function userInfoObservers() {
+console.log("I am here")
+userListRef.on('value', function(snapshot){
+console.log("I am here")
+  console.log(snapshot)
+  for(key in snapshot.val()) {
+
+    // get the title of the object
+    let title = (snapshot.val()[key].title)
+    let user = new User (title)
+    users.push(user)
+  }
+  console.log(users)
 })
 
+}
 
-btnContinueToUserPage.addEventListener('click', e => {
-
-//Get email and pass
-//TO DO: CHECK FOR REAL EMAIL
-window.location = '../user_page/user_home.html'
-
-})
+//
+// function updateUI() {
+//
+//   $(shoppingLists).each(function(index,shoppingList){
+//
+//       $("<div>")
+//       .append($("<li>").html(shoppingList.title))
+//       .append($("<input>").attr("placeholder","Enter Title").attr("id","grocery-title-textbox"))
+//       .append($("<input>").attr("placeholder","Enter Price").attr("id","grocery-price-textbox"))
+//       .append($("<button>").attr("shopping-list-title",shoppingList.title).html("Add Grocery Item").click(function(){
+//
+//           // get grocery item title
+//           let groceryTitle = $($(this).siblings("#grocery-title-textbox")[0]).val()
+//           let price = $($(this).siblings("#grocery-price-textbox")[0]).val()
+//
+//           let groceryItem = new GroceryItem(groceryTitle,price)
+//           console.log(groceryItem)
+//
+//           let title = $(this).attr("shopping-list-title")
+//           let shoppingList = shoppingLists.filter(function(item){
+//             return item.title == title
+//           })[0]// just get the first item of the array
+//
+//           console.log(shoppingList)
+//           shoppingList.groceryItems.push(groceryItem)
+//
+//           let shoppingListRef = shoppingListsRef.child(shoppingList.title)
+//           shoppingListRef.set(shoppingList)
+//
+//       }))
+//       .appendTo(shoppingListUL)
+//
+//   })
+//
+// }

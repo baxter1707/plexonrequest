@@ -66,9 +66,8 @@ const pass = txtPassword.value
 const auth = firebase.auth();
 
 const promise = auth.createUserWithEmailAndPassword(email, pass)
-window.location = 'update_profile.html';
-
 })
+window.location = '../login_page/update_profile.html';
 
 // Sen Add forget password action
 
