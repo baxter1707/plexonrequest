@@ -1,3 +1,4 @@
+
 // Initialize Firebase
 const config = {
   apiKey: "AIzaSyC4xJczHrcejbkI0VeKFnBVpeUkq6E_YFk",
@@ -9,33 +10,66 @@ const config = {
 };
 firebase.initializeApp(config);
 
-const txtFirstName = document.getElementById('txtFirstName')
-const txtLastName = document.getElementById('txtLastName')
-const txtPhoneNumber = document.getElementById('txtPhoneNumber')
-const txtAddress = document.getElementById('txtAddress')
-const btnUpdateProfile = document.getElementById('btnUpdateProfile')
+//Get Elements
+const txtEmail = document.getElementById('txtEmail')
+const txtPassword = document.getElementById('txtPassword')
+const btnSignup = document.getElementById('btnSignup')
+const btnGoogleLogin = document.getElementById('btnGoogleLogin')
+const signupForm = document.getElementById('signupForm')
 
-//Sen Add send reset password Link
-btnUpdateProfile.addEventListener('click', e => {
 
-//Get email and pass
-//TO DO: CHECK FOR REAL EMAIL
-const firstName = txtFirstName.value
-const lastName = txtFirstName.value
-const phoneNumber = txtPhoneNumber.value
-const address = txtAddress.value
+//Add Login event
+signupForm.addEventListener('submit', e => {
+  e.preventDefault()
+  //get email and password
+  
+const email = txtEmail.value
+const pass = txtPassword.value
+const auth = firebase.auth();
 
-let user = new Users(firstName, lastName, phoneNumber, address)
-console.log(user)
-window.location = '../user_page/user_home.html'
 
+const promise = auth.createUserWithEmailAndPassword(email, pass).then(e=> {
+  alert("Account Created")
+})
+promise.catch(e => { 
+  alert(e)
+
+})
+})
+
+//sign up with Google
+btnGoogleLogin.addEventListener('click', e => {
+  var provider = new firebase.auth.GoogleAuthProvider();
+
+  firebase.auth().signInWithPopup(provider).then(function(result) {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      var token = result.credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      // ...
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+    });
 })
 
 
-btnContinueToUserPage.addEventListener('click', e => {
 
-//Get email and pass
-//TO DO: CHECK FOR REAL EMAIL
-window.location = '../user_page/user_home.html'
+//Add a realtime listener
 
+firebase.auth().onAuthStateChanged(firebaseUser => {
+  if (firebaseUser) {
+      console.log(firebaseUser)
+      window.location = 'update_profile.html'; //After successful login, user will be redirected to home.html
+          }
+        
+  else {
+      console.log('Not logged in');
+  }
 })

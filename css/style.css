@@ -270,7 +270,7 @@ body {
 .signup-container__title {
   color: #f2860a; }
 
-#btnLogin {
+#formLogin {
   display: flex;
   flex-direction: column;
   align-items: center; }
@@ -279,3 +279,23 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center; }
+
+#btnlogin {
+  margin-top: 2rem; }
+
+/*----------------------------Sign Up Page---------------------------------*/
+#signupForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+#btnSignup {
+  margin-top: 2rem; }
+
+/*----------------------------Update Profile Page---------------------------------*/
+#btnUpdateProfile {
+  margin-top: 2rem; }
+
+/*----------------------------Recover Password Page---------------------------------*/
+#btnReset {
+  margin-top: 2rem; }

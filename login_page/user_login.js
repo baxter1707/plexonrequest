@@ -13,14 +13,14 @@ const config = {
 //Get Elements
 const txtEmail = document.getElementById('txtEmail')
 const txtPassword = document.getElementById('txtPassword')
-const btnLogin = document.getElementById('btnLogin')
+const formLogin = document.getElementById('formLogin')
 const btnSignup = document.getElementById('btnSignup')
 const btnGoogleLogin = document.getElementById('btnGoogleLogin')
 // sen added lines below
 const btnForgetPassword = document.getElementById('btnForgetPassword')
 
 //Add Login event
-btnLogin.addEventListener('submit', e => {
+formLogin.addEventListener('submit', e => {
     e.preventDefault()
     //get email and password
     const email = txtEmail.value
@@ -55,6 +55,7 @@ btnGoogleLogin.addEventListener('click', e => {
         // ...
       });
 })
+
 
 // Sen Add forget password action
 
