@@ -14,7 +14,7 @@ const promise = auth.signInWithEmailAndPassword(email, pass);
 //moviedirectory = usermovies.child(movieid);
   //moviedirectory.set(requestedMovie);
 
-
+//_______THIS SECTION LOOPS THROUGH THE ARRAY_________//
 usermovies.on("value",function(snapshot){
 
 for(movies in snapshot.val()){
@@ -30,7 +30,6 @@ for(movies in snapshot.val()){
 
       $("<li>").addClass("list-item")
       .append($("<div>").attr("id","poster-title-container")
-      .append($("<h3>").html(information.Title))
       .append($("<img>").attr("src",information.Poster))
       .append($("<img>").addClass("trash-can-image").attr("src","images/trashcan.png").click(function (){
          var answer = confirm("Are you sure you want to delete this request?");
@@ -44,6 +43,7 @@ for(movies in snapshot.val()){
             }
 
       }))
+      .append($("<h4>").html(information.Title))
       )
 
       .appendTo($("#movie-choice-container"))

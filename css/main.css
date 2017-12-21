@@ -1,3 +1,12 @@
+.header-div {
+  display: flex;
+  flex-direction: row;
+}
+.header-div h1{
+  margin-right: 400px;
+}
+
+
 #effect {
   position: relative;
   width: 550px;
@@ -29,7 +38,8 @@
 }
 #poster-title-container {
   position: relative;
-  height:90%;
+  height:auto;
+  width: 300px;
 }
 
 #poster-title-container img{
@@ -79,6 +89,7 @@ li {
   height:40%;
   margin-bottom: 15px;
 }
+
 
 
 
