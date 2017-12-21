@@ -1,25 +1,61 @@
+let ref = firebase.database().ref();
+let users = ref.child("users");
+let uid = "kurkrUpfd4fg0fENIjVKfCNRfQV2"
+let userref = users.child(uid);
+let usermovies = userref.child("movies");
+
+const email = "danny@dyer.com";
+const pass = "password";
+const auth = firebase.auth();
+
+const promise = auth.signInWithEmailAndPassword(email, pass);
 
 
+//moviedirectory = usermovies.child(movieid);
+  //moviedirectory.set(requestedMovie);
 
-for (i = 0; i <3;i++){
+
+usermovies.on("value",function(snapshot){
+
+for(movies in snapshot.val()){
+  let title = snapshot.val()[movies]
+  title.movies = movies
+  console.log(title.movies)
+  let movieINFO= 'http://www.omdbapi.com/?i='+ title.movies + '&apikey=d1da1b5c'
+  console.log(movieINFO)
+
+  $.get(movieINFO,function(info){
+    $(info).each(function(index,information){
+      console.log(information.Title)
+
+      $("<li>").addClass("list-item")
+      .append($("<div>").attr("id","poster-title-container")
+      .append($("<h3>").html(information.Title))
+      .append($("<img>").attr("src",information.Poster))
+      .append($("<img>").addClass("trash-can-image").attr("src","images/trashcan.png").click(function (){
+         var answer = confirm("Are you sure you want to delete this request?");
+            if (answer) {
+               usermovies.child(movies).remove()
+               $(".list-item").remove()
+               $("#movie-choice-container").html("")
+
+            }else{
+               return false;
+            }
+
+      }))
+      )
+
+      .appendTo($("#movie-choice-container"))
+    })
+  })
+}
+})
+
 
 // ___________Request Number One____________//
-$("<div>").attr("id","user-request").addClass("selection-container")
-.append($("<label>").html("1."))
-.append($("<div>").attr("id","poster-title-container")
-.append($("<img>").attr("src","http://starwarsblog.starwars.com/wp-content/uploads/2017/10/the-last-jedi-theatrical-blog.jpg"))
-.append($("<img>").addClass("trash-can-image").attr("src","images/trashcan.png").click(function (){
-   var answer = confirm("Are you sure you want to delete this request?");
-      if (answer) {
-         $("#user-request").remove();
-      }else{
-         return false;
-      }
-}))
-.append($("<h3>").html("Movie Title Here.")))
 
-.appendTo($("#movie-choice-container"))
-}
+
 $("#movie-choice-container").sortable()
 
 

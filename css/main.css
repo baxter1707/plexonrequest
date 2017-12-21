@@ -1,9 +1,18 @@
+#effect {
+  position: relative;
+  width: 550px;
+  height: auto;
+  padding: 0.4em;
+}
+
 #movie-choice-container{
   height:auto;
-  width:300px;
+  width: 500px;
   align-items: center;
   display:flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  padding-left: 10px;
+  margin-top: 0px;
 }
 
 .selection-container{
@@ -14,15 +23,19 @@
   padding-top: 15px;
   height: 30%;
   width:90%;
+  margin-top: 20px;
+  margin-bottom: 30px;
 
 }
 #poster-title-container {
-  position: relative
+  position: relative;
+  height:90%;
 }
 
 #poster-title-container img{
   height:90%;
   width: 50%;
+
 
 }
 
@@ -43,8 +56,8 @@
 
 #poster-title-container img.trash-can-image{
   position: absolute;
-  top:25%;
-  right: 61%;
+  top:50%;
+  right: 60%;
   background-color: transparent;
   display: none;
   font-weight: bold;
@@ -54,8 +67,17 @@
 
 }
 
+li {
+  list-style-type: none;
+}
+
 .trash-button {
   background: url("images/trashcan.png")
+}
+
+.list-item {
+  height:40%;
+  margin-bottom: 15px;
 }
 
 
@@ -70,10 +92,4 @@
    padding: .5em 1em;
    text-decoration: none;
    margin-bottom: 10px;
- }
- #effect {
-   position: relative;
-   width: 300px;
-   height: auto;
-   padding: 0.4em;
  }
