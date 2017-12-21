@@ -56,6 +56,23 @@ btnGoogleLogin.addEventListener('click', e => {
       });
 })
 
+//Add sign up event
+btnSignup.addEventListener('click', e => {
+//Get email and pass
+//TO DO: CHECK FOR REAL EMAIL
+
+const email = txtEmail.value
+const pass = txtPassword.value
+const auth = firebase.auth();
+
+const promise = auth.createUserWithEmailAndPassword(email, pass)
+window.location = 'update_profile.html';
+
+})
+
+
+
+
 // Sen Add forget password action
 
 btnForgetPassword.addEventListener('click', function(){

@@ -8,6 +8,9 @@ $light-orange: #f08f21 ;
 $white: #fff;
 $bck-color-dark: #000;
 $bck-color-light: rgb(94, 92, 92);
+$main-font: 'Catamaran', sans-serif;
+$default-font-color: #fff;
+
 
 /*-----------------------------------------------------------------------
                                MIX-INS
@@ -41,6 +44,13 @@ $bck-color-light: rgb(94, 92, 92);
     background: -webkit-linear-gradient(bottom right, $bck-color-dark, $bck-color-light);
     background: -moz-linear-gradient(bottom right, $bck-color-dark, $bck-color-light);
     background: linear-gradient(to bottom right, $bck-color-dark, $bck-color-light);
+
+}
+
+@mixin flex-center-column() {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
 }
 
 /*-----------------------------------------------------------------------
@@ -62,6 +72,7 @@ $bck-color-light: rgb(94, 92, 92);
     transition-property: all;
     transition-duration: 0.6s;
     transition-timing-function: ease;
+    font-family: $main-font;
 }
 
 html,
@@ -69,6 +80,13 @@ body {
     box-sizing: border-box;
     height: 100%;
     width: 100%;
+}
+
+body {
+    position: fixed;
+}
+.background-color {
+    @include background();
 }
 /*-----------------------------------------------------------------------
                                 COMPONENTS
@@ -179,10 +197,17 @@ body {
         list-style-type: none;
         text-align: center;
         width: 100%;
+        @media screen and (max-width: 425px) {
+            top: 75%;
+            left: 60%;
+            
+        }
     }
 
     &_item {
         margin: 1rem;
+        @media screen and (max-width: 425px) {
+            margin: .5rem;}
     }
 
     &_link {
@@ -195,10 +220,17 @@ body {
         color: $white;
         text-decoration: none;
         text-transform: uppercase;
-        background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $orange 50%);
-        background-size: 220%;
+        background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $white 50%);
+        background-size: 230%;
         transition: all .4s;
-
+        @media screen and (max-width: 425px) {
+            color: $white;
+            text-decoration: none;
+            text-transform: uppercase;
+            background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $white 50%);
+            background-size: 230%;
+            transition: all .4s;}
+        
         span {
             margin-right: 1.5rem;
             display: inline-block;
@@ -208,7 +240,7 @@ body {
     &:hover,
     &:active {
         background-position: 100%;
-        color: $white;
+        color: $orange;
         transform: translateX(-1rem);
     }
 }
@@ -303,9 +335,13 @@ body {
 
 
 .login-container {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
+    @include flex-center-column()
+}
+
+.signup-container {
+&__title {
+    color: $orange;}
+
 }
 
 #btnLogin {
@@ -313,9 +349,7 @@ body {
     flex-direction: column;
     align-items: center;
 }
-#txtPassword {
-    margin-bottom: 2rem;
-}
+
 .btns-container {
     display: flex;
     flex-direction: column;
