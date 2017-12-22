@@ -4,7 +4,9 @@ let rootRef = firebase.database().ref()
 let userListRef = rootRef.child("users")
 let userIDRef = userListRef.child("Info")
 let divShowAllUsers = document.getElementById("divShowAllUsers")
-
+let txtUserSearch = document.getElementById("txtUserSearch")
+let btnUserSearch = document.getElementById("btnUserSearch")
+let displaySearchedUser = document.getElementById("displaySearchedUser")
 
 firebase.auth().onAuthStateChanged(function(user){
   if (user) {
@@ -12,30 +14,19 @@ firebase.auth().onAuthStateChanged(function(user){
     const currentuser = firebase.auth().currentUser;
 
   btnshowAllUser.addEventListener('click', e => {
-
+  divShowAllUsers.innerHTML = ""
    userInfoObservers()
   })
 
-  function userInfoObservers() {
-  console.log("I am not here")
-  userListRef.once("value").then(function(snapshot){
-  console.log("I am here")
-
-    for(key in snapshot.val()) {
-      // // get the title of the object
-      let userInfoFromDatabase = Object.values(snapshot.val()[key])[0]
-      let userAddress = userInfoFromDatabase.address
-      let userFirstName = userInfoFromDatabase.firstName
-      let userLastName = userInfoFromDatabase.lastName
-      let userPhoneNumber = userInfoFromDatabase.phoneNumber
-      let user = new User(userAddress, userPhoneNumber, userLastName, userFirstName)
-
-      users.push(user)
-
-    }
-    updateUI()
+  btnUserSearch.addEventListener('click', e => {
+    displaySearchedUser.innerHTML = ""
+   userSearch()
   })
 
+  function userInfoObservers() {
+
+    loadUserArray()
+    updateUI()
   }
 
   } else {
@@ -44,9 +35,9 @@ firebase.auth().onAuthStateChanged(function(user){
 });
 
 function updateUI() {
-    let counter = 0
+
   $(users).each(function(index,user){
-    console.log(user)
+
       $("<div>")
       .append($("<li>")
           .append($("<div>").html("Name:" + user.firstName + " "+user.lastName))
@@ -55,42 +46,49 @@ function updateUI() {
             )
       .appendTo(divShowAllUsers)
   })
+  users =[]
+}
+
+function loadUserArray(){
+
+      userListRef.once("value").then(function(snapshot){
+
+      for(key in snapshot.val()) {
+      // // get the title of the object
+      let userInfoFromDatabase = Object.values(snapshot.val()[key])[0]
+      let u = new User(snapshot.val()[key])
+      let userAddress = userInfoFromDatabase.address
+      let userFirstName = userInfoFromDatabase.firstName
+      let userLastName = userInfoFromDatabase.lastName
+      let userPhoneNumber = userInfoFromDatabase.phoneNumber
+      let user = new User(userAddress, userPhoneNumber, userLastName, userFirstName)
+      users.push(user)}
+
+  })
+}
+
+function userSearch() {
+
+  loadUserArray()
+  searchUserFunction()
 
 }
 
+function searchUserFunction(){
 
+  let search = $("#txtUserSearch").val().toLowerCase()
 
-// function updateUI() {
-//
-//   $(users).each(function(index,user){
-//
-//       $("<div>")
-//       .append($("<li>").html(user.title))
-//       .append($("<input>").attr("placeholder","Enter Title").attr("id","grocery-title-textbox"))
-//       .append($("<input>").attr("placeholder","Enter Price").attr("id","grocery-price-textbox"))
-//       .append($("<button>").attr("shopping-list-title",shoppingList.title).html("Add Grocery Item").click(function(){
-//
-//           // get grocery item title
-//           let groceryTitle = $($(this).siblings("#grocery-title-textbox")[0]).val()
-//           let price = $($(this).siblings("#grocery-price-textbox")[0]).val()
-//
-//           let groceryItem = new GroceryItem(groceryTitle,price)
-//           console.log(groceryItem)
-//
-//           let title = $(this).attr("shopping-list-title")
-//           let shoppingList = shoppingLists.filter(function(item){
-//             return item.title == title
-//           })[0]// just get the first item of the array
-//
-//           console.log(shoppingList)
-//           shoppingList.groceryItems.push(groceryItem)
-//
-//           let shoppingListRef = shoppingListsRef.child(shoppingList.title)
-//           shoppingListRef.set(shoppingList)
-//
-//       }))
-//       .appendTo(shoppingListUL)
-//
-//   })
-//
-// }
+  let searchResult = users.filter(function(item){
+    let itemFirstNmae = item.firstName.toLowerCase()
+    return itemFirstNmae == search
+  })
+
+  $("<div>")
+  .append($("<li>").append($("<div>").html("Name: " + searchResult[0].firstName + " " + searchResult[0].lastName))
+                    .append($("<div>").html("Phone: " + searchResult[0].phoneNumber))
+                    .append($("<div>").html("address: " + searchResult[0].address))
+                  )
+  .appendTo(displaySearchedUser)
+
+      users =[]
+}

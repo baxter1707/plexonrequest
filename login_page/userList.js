@@ -9,6 +9,8 @@ class User {
     this.firstName = firstName
     this.movieList = []
   }
+
+
 }
 
 class Movie {

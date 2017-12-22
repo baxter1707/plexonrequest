@@ -2,32 +2,41 @@
 <html>
 <head>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="../styles/styles.css">
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="../css/style.css">
+<link rel="stylesheet" type="text/css" href="../css/style.css"> -->
 
 </head>
 <body>
 <div class="page-wide-container">
-<div class="login-container">
+  <div class="login-container">
 
-    <div class="btns-container">
+      <div class="btns-container">
 
-              <button id="btnshowAllUser" class = "btn btn-action">
-                      show all users
-              </button>
+                <button id="btnshowAllUser" class = "btn btn-action">
+                        show all users
+                </button>
 
-    </div>
+                <input id="txtUserSearch" type="text" placeholder="user first and last name" class="txtBox">
 
-    <div style="background-color:orange;">
-      <ol id = "divShowAllUsers">
+                <button id="btnUserSearch" class = "btn btn-action">
+                        Search
+                </button>
+      </div>
 
-      </ol>
-    </div>
+      <div style="background-color:orange;">
+        <ol id = "divShowAllUsers">
 
-</div>
+        </ol>
+      </div>
+      <div>
+        <ol id = "displaySearchedUser">
+
+        </ol>
+      </div>
+  </div>
 </div>
 
 </body>
@@ -48,6 +57,6 @@
 <!-- <script src="user_login.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="userList.js"></script>
-<script src="update_profile.js"></script>
+<!-- <script src="update_profile.js"></script> -->
 <script src="admin_page.js"></script>
 </html>
