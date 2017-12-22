@@ -68,7 +68,10 @@ const auth = firebase.auth();
 const promise = auth.createUserWithEmailAndPassword(email, pass)
 })
 <<<<<<< HEAD
+<<<<<<< HEAD
 window.location = '../login_page/user_signup.html';
+=======
+>>>>>>> d9cb18515685fb8e6d3c1d81f15b7e0cde340279
 =======
 >>>>>>> d9cb18515685fb8e6d3c1d81f15b7e0cde340279
 
