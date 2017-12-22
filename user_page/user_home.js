@@ -26,24 +26,30 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 
     const btnUpdateYourProfile = document.getElementById('btnUpdateYourProfile')
-    const btnshowCurrentUser = document.getElementById('btnshowCurrentUser')
-    const btnshowAllUser = document.getElementById('btnshowAllUser')
+    const btngoToAdminPage = document.getElementById('btngoToAdminPage')
+
     //Add logout event
-    // btnUpdateYourProfile.addEventListener('click', e => {
-    //   window.location = '../login_page/update_profile.html';
-    // })
-
-    btnshowCurrentUser.addEventListener('click', e => {
-
-      var currentuser = firebase.auth().currentUser;
-
-      let displayCurrentUser = document.getElementById('currentUser')
-      displayCurrentUser.innerHTML="current user: " + currentuser.email
+    btnUpdateYourProfile.addEventListener('click', e => {
+      window.location = '../login_page/update_profile.html';
     })
 
-    btnshowAllUser.addEventListener('click', e => {
+    // btnshowCurrentUser.addEventListener('click', e => {
+    //
+    //   var currentuser = firebase.auth().currentUser;
+    //
+    //   let displayCurrentUser = document.getElementById('currentUser')
+    //   displayCurrentUser.innerHTML="current user: " + currentuser.email
+    // })
 
-      console.log("to be constructed")
+    btngoToAdminPage.addEventListener('click', e => {
+      if (user.uid == 'OTVKOeIE84MYXRidQYOskh1slP92'){
+
+        window.location = '../login_page/admin_page.html';
+      }
+      else {
+
+       alert("you don't have the right")
+      }
     })
 
 
