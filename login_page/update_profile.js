@@ -1,16 +1,17 @@
 
-let users = []
-let rootRef = firebase.database().ref()
-let userListRef = rootRef.child("users")
-let userIDRef = userListRef.child("Info")
 
-userInfoObservers()
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
 
     const currentuser = firebase.auth().currentUser;
-    
+
+    let users = []
+    let rootRef = firebase.database().ref()
+    let userListRef = rootRef.child("users")
+    let userIDRef = userListRef.child("Info")
+
+
 
     const txtFirstName = document.getElementById('txtFirstName')
     const txtLastName = document.getElementById('txtLastName')
@@ -39,31 +40,29 @@ firebase.auth().onAuthStateChanged(function(user) {
 
   })
 
-
-
-
+  // function userInfoObservers() {
+  // console.log("I am not here")
+  // userListRef.once("value").then(function(snapshot){
+  // console.log("I am here")
+  //   console.log(snapshot)
+  //   for(key in snapshot.val()) {
+  //
+  //     // get the title of the object
+  //     let title = (snapshot.val()[key].title)
+  //     let user = new User (title)
+  //     users.push(user)
+  //   }
+  //   console.log(users)
+  // })
+  //
+  // }
 
   } else {
     console.log("something is wrong")
   }
 });
 
-function userInfoObservers() {
-console.log("I am here")
-userListRef.on('value', function(snapshot){
-console.log("I am here")
-  console.log(snapshot)
-  for(key in snapshot.val()) {
 
-    // get the title of the object
-    let title = (snapshot.val()[key].title)
-    let user = new User (title)
-    users.push(user)
-  }
-  console.log(users)
-})
-
-}
 
 //
 // function updateUI() {
