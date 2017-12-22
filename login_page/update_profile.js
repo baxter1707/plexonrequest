@@ -30,12 +30,6 @@ firebase.auth().onAuthStateChanged(function(user) {
    window.location = '../user_page/user_home.html'
 
   })
-
-
-
-
-
-
   } else {
     console.log("something is wrong")
   }

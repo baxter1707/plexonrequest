@@ -80,11 +80,9 @@ body {
     box-sizing: border-box;
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
-body {
-    position: fixed;
-}
 .background-color {
     @include background();
 }
@@ -378,4 +376,25 @@ body {
 /*----------------------------Recover Password Page---------------------------------*/
 #btnReset {
     margin-top: 2rem;
+}
+
+/*----------------------------Admin Page---------------------------------*/
+#displayRequests {
+    height: 500px;
+    width: 250px;
+    background: $orange;
+    margin: 10px;
+}
+
+#sendMessage {
+    height: 150px;
+    width: 300px;
+    background: $white;
+    margin: 10px;
+}
+
+#admin-container {
+    display: flex;
+    flex-direction: space-between;
+    flex-direction: row;
 }
