@@ -11,7 +11,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     usermovies = ref.child("users/" + userid + "/movies");
 
     var interestArray = [];
-    var moviedirectories = ["requested", "bookmarked", "fulfilled"];
+    var moviedirectories = ["request", "bookmark", "fulfilled"];
 
     moviedirectories.map(function(directory) {
       interestArray[directory] = [];
@@ -28,7 +28,8 @@ firebase.auth().onAuthStateChanged(function(user) {
       });
     });
 
-    console.log(interestArray);
+    var requestArray = interestArray.request;
+    var bookmarkArray = interestArray.bookmark;
 
     $("#slidercontent").hide();
 
@@ -89,7 +90,6 @@ firebase.auth().onAuthStateChanged(function(user) {
     });
 
     function apiFormat(thisquery) {
-      console.log(thisquery);
       apiquery = thisquery
         .replace(/ $/, "")
         .split(" ")
@@ -194,16 +194,13 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 
     function addButtons(thismovie) {
-      let requestedArray = interestArray.requested;
-      let bookmarkedArray = interestArray.bookmarked;
-
-      if (requestedArray.hasOwnProperty(thismovie.imdbID)) {
+      if (requestArray.hasOwnProperty(thismovie.imdbID)) {
         $("#request")
           .attr("class", "interested")
           .attr("value", "Requested")
           .attr("id", "requested");
       } else {
-        if ((requestedArray.length = 3)) {
+        if (requestArray.length == 3) {
           $("#request")
             .attr("value", "Queue Full")
             .attr("id", "queuefull");
@@ -214,7 +211,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         }
       }
 
-      if (bookmarkedArray.hasOwnProperty(thismovie.imdbID)) {
+      if (bookmarkArray.hasOwnProperty(thismovie.imdbID)) {
         $("#bookmark")
           .attr("class", "interested")
           .attr("value", "Bookmarked")
@@ -233,7 +230,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         "https://www.omdbapi.com/?i=" + imdbID + "&apikey=" + apikey;
 
       $.get(moredetails).done(function(thismovie) {
-        console.log(thismovie);
         $("<div>")
           .attr("class", "detailedlook")
           .attr("id", thismovie.imdbID)
@@ -327,8 +323,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         .insertAfter($(".movies").eq(detailPlacement))
         .slideDown();
 
-      console.log(detailPlacement);
-
       $("html,body").animate(
         {
           scrollTop: $("#slidercontent").offset().top - $(this).height() / 5
@@ -351,13 +345,21 @@ firebase.auth().onAuthStateChanged(function(user) {
     var interesttype = $(event.target)
       .closest("input")
       .attr("id");
-    thismoviedirectory = usermovies.child(interesttype);
-    requestedMovie = new MovieInterest();
     movieid = $(".detailedlook").prop("id");
+    thismoviedirectory = usermovies.child(interesttype + "/" + movieid);
+    requestedMovie = new MovieInterest();
     thismoviedirectory.set(requestedMovie);
-    $(this)
-      .attr("value", "Requested")
-      .attr("id", "requested");
+    if (interesttype == "request") {
+      $(this)
+        .attr("value", "Requested")
+        .attr("id", "requested")
+        .attr("class", "interested");
+    } else if (interesttype == "bookmark") {
+      $(this)
+        .attr("value", "Bookmarked")
+        .attr("id", "bookmarked")
+        .attr("class", "interested");
+    }
   });
 
   $(document).on("mouseenter", "#queuefull", function() {
@@ -365,15 +367,35 @@ firebase.auth().onAuthStateChanged(function(user) {
   });
 
   $(document).on("click", ".interested", function() {
+    var directory;
     var interesttype = $(event.target)
       .closest("input")
       .attr("id");
     movieid = $(".detailedlook").prop("id");
-    console.log(movieid);
-    thismoviedirectory = usermovies.child("movies/" + interesttype);
+
+    if (interesttype == "requested") {
+      $(this)
+        .attr("value", "Request")
+        .attr("id", "request")
+        .attr("class", "userinterest");
+
+      requestArray = requestArray.filter(function(movieid) {
+        return !toRemove.includes(movieid);
+      });
+      var directory = "request";
+    } else if (interesttype == "bookmarked") {
+      $(this)
+        .attr("value", "Bookmark")
+        .attr("id", "bookmark")
+        .attr("class", "userinterest");
+
+      bookmarkArray = bookmarkArray.filter(function(movieid) {
+        return !toRemove.includes(movieid);
+      });
+      var directory = "bookmark";
+    }
+
+    thismoviedirectory = usermovies.child(directory);
     thismoviedirectory.child(movieid).remove();
-    $(this)
-      .attr("value", "Request")
-      .attr("id", "request");
   });
 });
