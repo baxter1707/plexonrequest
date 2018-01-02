@@ -1,0 +1,19 @@
+#movie-choice-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+#effect {
+  width: fit-content;
+}
+
+#wishlist-container {
+  display: flex;
+  flex-direction: row;
+}
