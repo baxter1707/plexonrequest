@@ -2,26 +2,39 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
   <link rel="stylesheet" type = "text/css" href= "css/main.css"></link>
+  <link rel="stylesheet" type = "text/css" href= "css/mobile.css"></link>
+  <link rel="stylesheet" type = "text/css" href= "css/desktop.css"></link>
   <link rel="stylesheet" type="text/css" href="css/jquery-ui.css"></link>
 </head>
 
 <body>
-<div class="header-div">
-  <div>
-    <h1> Welcome User </h1>
+<div class="main-container">
+  <div class="header-div">
+    <div class="title-div">
+
+    </div>
+    <div> Search bar here</div>
   </div>
 
-  <div> Search bar here</div>
-</div>
+
+  <div class ="toggler">
+    <button id="button" class="ui-state-default ui-corner-all">Pending Requests</button>
+    <div id="effect" class="ui-widget-content ui-corner-all">
+
+      <div id="movie-choice-container">
 
 
-<div class ="toggler">
-  <button id="button" class="ui-state-default ui-corner-all">Pending Requests</button>
-  <div id="effect" class="ui-widget-content ui-corner-all">
+      </div>
+    </div>
+  </div>
 
-    <div id="movie-choice-container">
+  <div class ="toggler">
+    <button id="button" class="ui-state-default ui-corner-all">WishList</button>
+    <div id="effect" class="ui-widget-content ui-corner-all">
+      <div id="wishlist-container">
 
 
+      </div>
     </div>
   </div>
 </div>

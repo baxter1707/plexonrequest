@@ -16,7 +16,6 @@
 
 #movie-choice-container{
   height:auto;
-  width: 500px;
   align-items: center;
   display:flex;
   /* flex-direction: column; */
@@ -66,8 +65,8 @@
 
 #poster-title-container img.trash-can-image{
   position: absolute;
-  top:50%;
-  right: 60%;
+  top:35%;
+  right: 35%;
   background-color: transparent;
   display: none;
   font-weight: bold;
@@ -88,6 +87,14 @@ li {
 .list-item {
   height:40%;
   margin-bottom: 15px;
+}
+
+.main-container {
+  background: #000;
+  background: -webkit-gradient(linear, left top, right bottom, from(#000), to(#5e5c5c));
+  background: -webkit-linear-gradient(bottom right, #000, #5e5c5c);
+  background: -moz-linear-gradient(bottom right, #000, #5e5c5c);
+  background: linear-gradient(to bottom right, #000, #5e5c5c);
 }
 
 
