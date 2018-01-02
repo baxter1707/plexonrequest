@@ -9,10 +9,38 @@ const config = {
   };
   firebase.initializeApp(config);
 
-  const btnLogout = document.getElementById('btnLogout')
 
-  //Add logout event
-btnLogout.addEventListener('click', e => {
-    firebase.auth().signOut();
-    window.location = '../login_page/user_login.html';
-})
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+
+
+
+      const btnLogout = document.getElementById('btnLogout')
+
+      //Add logout event
+    btnLogout.addEventListener('click', e => {
+        firebase.auth().signOut();
+        window.location = '../login_page/user_login.html';
+    })
+
+
+    const btnUpdateYourProfile = document.getElementById('btnUpdateYourProfile')
+    const btngoToAdminPage = document.getElementById('btngoToAdminPage')
+
+    //Add logout event
+    btnUpdateYourProfile.addEventListener('click', e => {
+      window.location = '../login_page/update_profile.html';
+    })
+
+    // btnshowCurrentUser.addEventListener('click', e => {
+    //
+    //   var currentuser = firebase.auth().currentUser;
+    //
+    //   let displayCurrentUser = document.getElementById('currentUser')
+    //   displayCurrentUser.innerHTML="current user: " + currentuser.email
+    // })
+  } else {
+    console.log("something is wrong")
+  }
+});

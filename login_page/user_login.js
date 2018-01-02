@@ -71,11 +71,14 @@ window.location = 'forget_password.html';
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
-        console.log(firebaseUser)
-        window.location = '../user_page/user_home.html'; //After successful login, user will be redirected to home.html
-            }
-
-    else {
-        console.log('Not logged in');
+        if(firebaseUser.uid == "OTVKOeIE84MYXRidQYOskh1slP92") {
+        window.location = 'admin_page.html'; //After successful login, user will be redirected to home.html
+        }    
+    else {window.location = '../user_page/user_home.html';}
+        
     }
+        
+    else {
+        console.log("User not found")}
+
 })

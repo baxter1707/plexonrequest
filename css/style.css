@@ -37,6 +37,9 @@ body {
   background: -moz-linear-gradient(bottom right, #000, #5e5c5c);
   background: linear-gradient(to bottom right, #000, #5e5c5c); }
 
+.color-white {
+  color: #fff; }
+
 /*-----------------------------------------------------------------------
                                 COMPONENTS
 -------------------------------------------------------------------------*/
@@ -299,19 +302,27 @@ body {
   margin-top: 2rem; }
 
 /*----------------------------Admin Page---------------------------------*/
-#displayRequests {
-  height: 500px;
-  width: 250px;
-  background: #f2860a;
-  margin: 10px; }
-
-#sendMessage {
-  height: 150px;
-  width: 300px;
-  background: #fff;
-  margin: 10px; }
-
-#admin-container {
+#showAllUsers {
+  color: #fff;
+  text-transform: capitalize;
   display: flex;
-  flex-direction: space-between;
-  flex-direction: row; }
+  flex-direction: column; }
+
+.admin_menu_container {
+  display: flex;
+  margin: 1rem; }
+
+.admin_menu_buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.userDisplayMenu {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: 1rem; }
+
+.userMenuItem {
+  margin-left: 1rem;
+  list-style-type: none; }

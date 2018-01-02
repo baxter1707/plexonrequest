@@ -1,0 +1,52 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+        
+</head>
+
+<body class="background-color">
+
+    <div class="admin_menu_container">
+  
+      <div class="admin_menu_buttons">
+          <h2 class="color-white">Menu</h2>
+              <button id="btnLogout" class = "btn shrink">
+                Logout
+              </button>
+              <button id="btnshowAllUser" class = "btn shrink">
+                show all users
+              </button>
+            </div>
+        <div class="admin_menu_display_container">   
+          <ul id = "showAllUsers">
+            
+              </ul>
+        <div class="admin_menu_display_container_middle"> 
+            <ul id = "displayUserDetails">
+                  
+            </ul>
+        </div>
+        </body>
+        
+        <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyC4xJczHrcejbkI0VeKFnBVpeUkq6E_YFk",
+            authDomain: "mikesmovies-c3799.firebaseapp.com",
+            databaseURL: "https://mikesmovies-c3799.firebaseio.com",
+            projectId: "mikesmovies-c3799",
+            storageBucket: "mikesmovies-c3799.appspot.com",
+            messagingSenderId: "840246158041"
+          };
+          firebase.initializeApp(config);
+        </script>
+        <!-- <script src="user_login.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="userList.js"></script>
+        <!-- <script src="update_profile.js"></script> -->
+        <script src="admin_page.js"></script>
+        </html>
