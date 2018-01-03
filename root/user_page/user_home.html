@@ -18,7 +18,7 @@
 <div id="navigation-container">
     <form id="live-search" action="" class="styled" method="post">
       <fieldset>
-        <input type="text" class="text-input" id="filter" value="" placeholder="search for a movie"/>
+        <input type="text" class="text-input" id="filter" value="" placeholder="search for a movie" data-type="search"/>
       </fieldset>
     </form>
 </div><div class="logout">
@@ -27,9 +27,15 @@
 </button>
 </div>
 </div>
+
 <div id="body-container">
   <div id="resultscontainer">
+    <div id="usersplash">
+      <div id="movie-choice-container"></div>
+      <div id="wishlist-container"></div>
+    </div>
     <div id="slidercontent"></div>
+    <!--<div id="processing"><img src="Preloader_21.gif"/></div>-->
   </div>
 </div>
 
@@ -41,6 +47,19 @@
 <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script>
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+admin.initializeApp(functions.config().firebase);
+
+exports.countrequests = functions.database
+  .ref(usermovies + "/request")
+  .onWrite(event => {
+    return event.data.ref.parent
+      .child("requestscount")
+      .set(event.data.numChildren());
+  });
+</script>
 <script src="js/user_home.js"></script>
 <script src="js/main.js"></script>
 </html>

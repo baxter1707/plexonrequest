@@ -35,12 +35,142 @@ firebase.auth().onAuthStateChanged(function(user) {
 
     /** SEARCH BAR INIT **/
 
+    /*  usermovies.on("value", function(snapshot) {
+      for (movies in snapshot.val()) {
+        let title = snapshot.val()[movies];
+        title.movies = movies;
+        // console.log(title.movies)
+        let movieINFO =
+          "http://www.omdbapi.com/?i=" + title.movies + "&apikey=d1da1b5c";
+        // console.log(movieINFO)
+
+        $.get(movieINFO, function(info) {
+          $(info).each(function(index, information) {
+            // console.log(information.Title)
+            $("<li>")
+              .addClass("list-item")
+              .append(
+                $("<div>")
+                  .attr("id", "poster-title-container")
+                  .append($("<img>").attr("src", information.Poster))
+                  .append(
+                    $("<img>")
+                      .addClass("trash-can-image")
+                      .attr("src", "images/trashcan.png")
+                      .click(function() {
+                        var answer = confirm(
+                          "Are you sure you want to delete this request?"
+                        );
+                        if (answer) {
+                          usermovies.child(title.movies).remove();
+                          $(".list-item").remove();
+                          $("#movie-choice-container").html("");
+                        } else {
+                          return false;
+                        }
+                      })
+                  )
+                  .append($("<h4>").html(information.Title))
+              )
+
+              .appendTo($("#movie-choice-container"));
+          });
+        });
+      }
+    });
+
+    $("#movie-choice-container").sortable();
+
+    // _____________TOGGLE SECTION TEST_____________
+    $(function() {
+      // run the currently selected effect
+      function runEffect() {
+        // get effect type from
+        var selectedEffect = $("#effectTypes").val();
+
+        // Most effect types need no options passed by default
+        var options = {};
+        // some effects have required parameters
+        if (selectedEffect === "scale") {
+          options = { percent: 50 };
+        } else if (selectedEffect === "size") {
+          options = { to: { width: 200, height: 60 } };
+        }
+
+        // Run the effect
+        $("#effect").toggle(selectedEffect, options, 500);
+      }
+      $("#button").on("click", function() {
+        runEffect();
+      });
+    });
+
+    //____________Wish List__________//
+    wishlist.on("value", function(snapshot) {
+      for (movies in snapshot.val()) {
+        let title = snapshot.val()[movies];
+        title.movies = movies;
+        console.log(title.movies);
+        let movieINFO =
+          "http://www.omdbapi.com/?i=" + title.movies + "&apikey=d1da1b5c";
+        // console.log(movieINFO)
+
+        $.get(movieINFO, function(info) {
+          $(info).each(function(index, information) {
+            // console.log(information.Title)
+
+            $("<li>")
+              .addClass("list-item")
+              .append(
+                $("<div>")
+                  .attr("id", "poster-title-container")
+                  .append($("<img>").attr("src", information.Poster))
+                  .append(
+                    $("<img>")
+                      .addClass("trash-can-image")
+                      .attr("src", "images/trashcan.png")
+                      .click(function() {
+                        var answer = confirm(
+                          "Are you sure you want to move this to your request list?"
+                        );
+                        if (answer) {
+                          wishlist.child(title.movies).remove();
+                          usermovies.child(title.movies);
+                          $(".list-item").remove();
+                          $("#movie-choice-container").html("");
+                        } else {
+                          return false;
+                        }
+                      })
+                  )
+                  .append($("<h4>").html(information.Title))
+              )
+
+              .appendTo($("#wishlist-container"));
+          });
+        });
+      }
+    }); */
+
     $(document).ready(function() {
       var typingTimer;
       var doneTypingInterval = 400;
-      var previousquery, thisquery;
+      var thisquery, previousquery;
 
-      $("#filter").keyup(function() {
+      $("#filter").keypress(function(e) {
+        var charTyped = String.fromCharCode(e.which);
+        if (/[a-z\d]/i.test(charTyped)) {
+          deltaTimer();
+        }
+      });
+
+      $("#filter").keyup(function(e) {
+        if (e.keyCode == 8) {
+          deltaTimer();
+        }
+      });
+
+      function deltaTimer() {
         clearTimeout(typingTimer);
 
         if ($("#filter").val()) {
@@ -50,11 +180,23 @@ firebase.auth().onAuthStateChanged(function(user) {
             .hide()
             .empty();
           $(".movies").remove();
+          if (typeof previousquery !== "undefined") {
+            var previousquery = "";
+          }
         }
+      }
+
+      $(".ui-input-clear").on("click", function() {
+        $("#slidercontent")
+          .hide()
+          .empty();
+        $(".movies").remove();
+        var previousquery = "";
       });
 
       function deltaSearch() {
         thisquery = $("#filter").val();
+        console.log(previousquery, thisquery);
 
         if (typeof previousquery == undefined || previousquery !== thisquery) {
           $(".movies").remove();
@@ -197,7 +339,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       if (requestArray.hasOwnProperty(thismovie.imdbID)) {
         $("#request")
           .attr("class", "interested")
-          .attr("value", "Requested")
+          .attr("value", "✓ Requested")
           .attr("id", "requested");
       } else {
         if (requestArray.length == 3) {
@@ -214,7 +356,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       if (bookmarkArray.hasOwnProperty(thismovie.imdbID)) {
         $("#bookmark")
           .attr("class", "interested")
-          .attr("value", "Bookmarked")
+          .attr("value", "✓ Bookmarked")
           .attr("id", "bookmarked");
       } else {
         $("#bookmark")
@@ -286,21 +428,21 @@ firebase.auth().onAuthStateChanged(function(user) {
                   .attr("class", "movieratings")
                   .html(thismovie.Ratings)
               )
-          )
-          .append(
-            $("<div>")
-              .attr("id", "selectbuttons")
               .append(
-                $("<input>")
-                  .attr("type", "button")
-                  .attr("class", "userinterest")
-                  .attr("id", "request")
-              )
-              .append(
-                $("<input>")
-                  .attr("type", "button")
-                  .attr("class", "userinterest")
-                  .attr("id", "bookmark")
+                $("<div>")
+                  .attr("id", "selectbuttons")
+                  .append(
+                    $("<input>")
+                      .attr("type", "button")
+                      .attr("class", "userinterest")
+                      .attr("id", "request")
+                  )
+                  .append(
+                    $("<input>")
+                      .attr("type", "button")
+                      .attr("class", "userinterest")
+                      .attr("id", "bookmark")
+                  )
               )
           )
           .append(
@@ -334,6 +476,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
   class MovieInterest {
     constructor(name, datetime) {
+      this.id = $(".detailedlook").prop("id");
       this.name = $("#detailedinfo")
         .children(".movietitle")
         .text();
@@ -351,12 +494,12 @@ firebase.auth().onAuthStateChanged(function(user) {
     thismoviedirectory.set(requestedMovie);
     if (interesttype == "request") {
       $(this)
-        .attr("value", "Requested")
+        .attr("value", "✓ Requested")
         .attr("id", "requested")
         .attr("class", "interested");
     } else if (interesttype == "bookmark") {
       $(this)
-        .attr("value", "Bookmarked")
+        .attr("value", "✓ Bookmarked")
         .attr("id", "bookmarked")
         .attr("class", "interested");
     }
